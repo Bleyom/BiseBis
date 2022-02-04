@@ -1,0 +1,11 @@
+format = """
+[λ bleyom in $directory❯](bold #d8b4bd) """
+
+[character]                            
+
+success_symbol = "[♥](bold green) [♥](bold yellow) [♥](bold red) "     
+
+[package]
+disabled = true
+add_newline = false
+

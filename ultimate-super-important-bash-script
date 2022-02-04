@@ -1,0 +1,82 @@
+#!/bin/bash
+# AntiFetch - Bleyom
+
+# Colors
+blue='e\033[0;34m'
+
+info() {
+    title=$USER@$(cat /etc/hostname)
+    user=$USER
+    os=$(grep -m1 "NAME=" </etc/os-release | cut -d '"' -f 2)
+    uptime=$(uptime -p | sed 's/^.{2\}//')
+    sh=$SHELL
+    ramtotal=$(grep MemTotal /proc/meminfo | awk '{print $2 / 1024 / 1024 }' | awk '{printf("%.2f \n",$1)}')
+    wm=$(xprop -id $(xprop -root -notype | awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}') -notype -f _NET_WM_NAME 8t | awk '{print $4}' | tr -d '{#,"}' | tr '\n' ' ' | tr -d "    " | awk '{print tolower($0)}')
+    localip=$(ip route get 1.2.3.4 | awk '{print $7}')
+    locale=$LANG
+    #    pkgs=$(echo $(pacman -Qq | wc -l && echo " ( pacman )") )      Only Works On Arch (btw)
+    music=$(playerctl metadata --format '{{ artist }} - {{ title }}')
+    cpu=$(cat /proc/cpuinfo | grep 'model name' | uniq | sed 's/^.\{13\}//')
+    gpu=$(lspci | grep VGA | sed 's/^.\{35\}//' | tr -d '()' | rev | cut -c8- | rev)
+    res=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
+}
+
+setinfo() {
+    info
+    cat <<EOF
+
+    $title
+     : $user
+     : $os
+     : $uptime
+     : $sh
+     : $ramtotal GB
+    󰱡 : $wm
+     : $localip
+     : $locale
+     : $music
+     : $cpu
+    󰕧 : $gpu
+    󰹑 : $res
+EOF
+}
+
+antihat="
+ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⣀⣤⣤⣤⣄⠄⠄⠄⠄⠄⠄⠄
+ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣿⠉⣸⣿⡏⠄⠈⠄⠄⠄⠄⠄⠄⠄
+ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣀⡜⣥⣼⣿⠃⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+ ⠄⠄⠄⠄⠄⠄⠄⠄⢠⣶⣋⠪⣹⣿⣿⡄⠄⠄⠄⠄⢀⣀⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⢠⣶⠛⣿⣿⠉⣿⣿⣿⣿⣿⣿⣶⡄⢰⣿⣾⠄⠄⠄⠄"
+antiface="
+⠄⠄⠄⠄⠄⠈⠓⠛⡾⣶⣾⣿⣿⣿⣿⣿⡿⠛⠋⣴⡟⠁⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⡇⠿⣉⡿⠙⢿⣿⣿⡇⠄⢸⣿⡇⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⢧⣀⠐⢚⣝⢷⣿⡿⠇⠄⠄⣿⠄⠄⠄⠄⠄"
+antibody="
+⠄⠄⠄⠄⠄⠄⠄⠄⢨⣿⣶⣮⣿⣾⣿⣥⡄⠄⠄⣿⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⣻⣿⣿⡿⢉⣿⣿⣿⣿⠤⣔⣣⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⢸⣿⣿⣷⣾⣿⡿⣿⣿⠄⠄⣿⡀⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠛⠃⣻⣿⣿⠄⠘⠛⠄⠄⢻⡇⠄⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠉⠉⠄⠉⠉⠄⠄⠄⠄⠸⠁⠄⠄⠄⠄⠄"
+case "$(echo $d)" in
+
+*) asciihat="$antihat" ;;
+*) asciiface="$antiface" ;;
+*) asciiboy="$antibody" ;;
+
+esac
+
+paste <(printf "%s ""$asciihat$antiface$antibody") <(printf "%s" "$(setinfo)") | cat
+f=3 b=4
+for j in f b; do
+  for i in {0..7}; do
+    printf -v $j$i %b "\e[${!j}${i}m"
+  done
+done
+ 
+cat << EOF
+ 
+                                    $f1$d$t  $f2$d$t  $f3$d$t  $f4$d$t  $f5$d$t  $f6$d$t  $f7$d$t  
+EOF
+exit 0
+
+setinfo
