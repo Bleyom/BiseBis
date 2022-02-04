@@ -21,7 +21,7 @@ cd BiseBis
 ##### Move the config to respective directories
 
 ```
-cp -r {bspwm,polybar,kitty,fish,picom,sxhkd,rofi,dunst,neofetch} ~/.config
+cp -r configs/{bspwm,polybar,kitty,fish,picom,sxhkd,rofi,dunst,neofetch} ~/.config
 ```
 
 ##### Give execution permissions to files
