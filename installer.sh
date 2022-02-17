@@ -6,6 +6,11 @@ help() {
     exit 1
 }
 
+welcome-msg() {
+    echo -ne "┌─> Github: https://github.com/Bleyom/ \n"
+    echo -ne "└────────> The script only works for Arch Linux, Void Linux (Working in Debian and another distros support)\n"
+}
+
 check_server() {
     if [ "$server" == x11 ]; then
         echo -ne "[*] You are using X11"
@@ -95,6 +100,9 @@ install-arch() {
 }
 
 start-install() {
+    echo -ne "Press enter to start script ( Control + C For exit )\n"
+    read -n 1 -s -r
+    welcome-msg
     detect_os
 }
 
@@ -111,5 +119,11 @@ while getopts ":h:i" arg; do
         ;;
     esac
 done
+
+trap ctrl_c INT
+
+function ctrl_c() {
+        echo "[*] Ciao ^^"
+}
 
 help
