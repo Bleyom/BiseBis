@@ -29,6 +29,20 @@ Shell: fish
 
 ### Installation 
 
+### Ez installation
+##### Note: For non-void distribution, no packages or dependencies will be installed.
+#### Clone the repo
+```
+git clone https://github.com/Bleyom/BiseBis
+```
+#### Give execution Permissions to installer
+```
+chmod +x installer.sh
+```
+#### Execute the installer ⌨️
+```
+./installer.sh
+```
 ##### Clone config repositorie
 
 ```
