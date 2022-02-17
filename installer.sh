@@ -37,6 +37,7 @@ copy-config() {
 
 install-common() {
     copy-config
+    echo -ne "Dotfiles succefully installed\n"
 }
 
 install-void() {
@@ -50,6 +51,8 @@ install-void() {
     check_server
     ./xbps-src pkg eww
     xi eww
+    copy-config
+    echo -ne "Dotfiles succefully installed\n"
 }
 
 start-install() {
