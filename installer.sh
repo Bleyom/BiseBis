@@ -67,12 +67,14 @@ install-paru() {
         git clone https://aur.archlinux.org/paru-bin.git
         cd paru-bin || exit
         makepkg -si
+        cd ..
     else
         echo -ne "[*] Git and another depedencies are not installed, Installing dependencies and cloning and installing AUR Helper (paru)\n"
         sudo pacman -S git base-devel fakeroot --noconfirm
         git clone https://aur.archlinux.org/paru-bin.git
         cd paru-bin || exit
         makepkg -si
+        cd ..
     fi
 }
 
@@ -96,6 +98,7 @@ install-void() {
     ./xbps-src binary-bootstrap
     check_server
     ./xbps-src pkg eww
+    cd ..
     xi eww
 }
 
