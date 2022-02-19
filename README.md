@@ -41,7 +41,7 @@ chmod +x installer.sh
 ```
 #### Execute the installer ⌨️
 ```
-./installer.sh
+./installer.sh -i
 ```
 ##### Clone config repositorie
 
