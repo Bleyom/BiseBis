@@ -19,7 +19,7 @@ Just my ~/.config
 
 ```
 INFO
-Os: Arch Linux (btw)
+Os: Void Linux
 Resolution: 1366x768
 Cpu: Intel(R) Core(TM) i7-3632QM CPU @ 2.20GHz
 Gpu: Intel Corporation 3rd Gen Core processor Graphics Controller
